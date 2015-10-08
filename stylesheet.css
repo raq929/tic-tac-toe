@@ -1,0 +1,16 @@
+
+h1 {
+  color:red;
+  text-align: center;
+}
+div {
+  height:100px;
+  width: 100px;
+}
+
+
+.horizontal {
+   border-top: 10px solid #bC6;
+}
+
+
