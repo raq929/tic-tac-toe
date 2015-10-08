@@ -78,7 +78,34 @@ table {
   border-radius: 10px;
 }
 
-.player {
+.players {
+  color: white;
+  text-align: center;
+  font-family: 'Rock Salt', cursive;
+  clear:left;
+  margin-left: 100px;
+}
 
+.playerA {
+   height: 200px;
+  width: 200px;
+  margin: 50px;
+  border: solid white 5px;
+  border-radius: 10px;
+  float:left;
+
+}
+
+.playerB {
+   height: 200px;
+  width: 200px;
+  margin: 50px;
+  border: solid white 5px;
+  border-radius: 10px;
+  float:left;
+}
+
+.letter {
+  font-size: 200%;
 }
 
