@@ -35,8 +35,10 @@ table {
   position: relative;
   margin: 0 auto;
   float: left;
-  margin-left: 50px;
+  margin-left: 100px;
   border-collapse: collapse;
+  color:white;
+  font-family: 'Rock Salt', cursive;
 
 }
 
@@ -46,15 +48,37 @@ table {
   border: 5px solid white;
   text-align: center;
   font-size: 40px;
-
-
 }
 
 .square:hover {
   background-color: blue;
 }
 
+
+.sidebar {
+  float: left;
+  color: white;
+  text-align: center;
+  font-family: 'Rock Salt', cursive;
+}
+
 .turn {
+  height: 100px;
+  width: 100px;
+  margin: 50px;
+  border: solid white 5px;
+  border-radius: 10px;
+}
+
+.score {
+  height: 200px;
+  width: 200px;
+  margin: 50px;
+  border: solid white 5px;
+  border-radius: 10px;
+}
+
+.player {
 
 }
 
