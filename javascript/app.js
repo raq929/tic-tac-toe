@@ -22,6 +22,7 @@ var player = 'X';
 //determine how many turns have been played
 var turns = 0;
 
+var winner;
 //add the x or o to the board object
 var addToBoard = function(event){
   var box =  event.target;
@@ -52,10 +53,30 @@ var placeX = function(event){
 $('.square').on('click', placeX);
 
 
-//Determine game over
-
-
 //Determine winner
+var winsRow = function (player){
+   return board.one === player && board.two === player && board.three === player || board.four === player && board.five === player && board.six === player || board.seven === player && board.eight === player && board.nine === player;
+}
+
+var winsColumn = function(player){
+  return board.one === player && board.four === player && board.seven === player
+  || board.two === player && board.five === player && board.eight === player
+  || board.three === player && board.six === player && board.nine === player;
+}
+
+var winsDiagonal = function(player){
+  return board.one === player && board.five === player && board.nine === player
+  || board.three === player && board.five === player && board.seven === player;
+}
+
+var winnerIs{
+  return winsRow(player) || winsColumn(player) || winsDiagonal(player);
+  winner = player;
+}
+
+alert(player + ' wins!')
+
+
 
 
 //Indicate game score
