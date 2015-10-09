@@ -19,7 +19,6 @@
          url('tally_mark-webfont.svg#tally_markregular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 body {
@@ -31,18 +30,18 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  color: white;
+  font-family:'eraserregular';
 
 }
 
 section {
-  margin: 0 auto;
+
 }
 
 h1 {
-  font-family: 'eraserregular';
-  margin-left: 160px;
-  color:white;
-  font-size: 70px;
+  margin-left: 190px;
+  font-size: 60px;
 }
 
 table {
@@ -54,7 +53,6 @@ table {
   float: left;
   margin-left: 100px;
   border-collapse: collapse;
-  color:white;
   font-family: 'eraserregular';
 
 }
@@ -62,7 +60,6 @@ table {
 .square {
   height: 28%;
   width: 28%;
-  border: 5px solid white;
   text-align: center;
   font-size: 40px;
 }
@@ -77,7 +74,6 @@ table {
   float: left;
   color: white;
   text-align: center;
-  font-family: 'eraserregular', cursive;
 }
 
 .turn {
@@ -90,7 +86,7 @@ table {
 }
 
 .score {
-  max-height: 200px;
+  max-height: 400px;
   max-width: 200px;
   margin: 50px;
   border-radius: 12px;
@@ -99,9 +95,7 @@ table {
 }
 
 .players {
-  color: white;
   text-align: center;
-  font-family: 'eraserregular';
   clear:left;
   margin-left: 100px;
   font-size: 30px;
