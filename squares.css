@@ -1,0 +1,55 @@
+.one {
+  border-top: 0;
+  border-right: 5px solid white;
+  border-bottom: 5px solid white;
+  border-left: 0;
+}
+
+.two {
+  border-top: 0;
+  border-right: 5px solid white;
+  border-bottom: 5px solid white;
+  border-left: 5px solid white;
+}
+
+.three {
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 5px solid white;
+  border-left: 5px solid white;
+}
+
+.four {
+  border-top: 5px solid white;
+  border-right: 5px solid white;
+  border-bottom: 5px solid white;
+  border-left: 0;
+}
+
+.six {
+  border-top: 5px solid white;
+  border-right: 0;
+  border-bottom: 5px solid white;
+  border-left: 5px solid white;
+}
+
+.seven {
+  border-top: 5px solid white;
+  border-right: 5px solid white;
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.eight{
+  border-top: 5px solid white;
+  border-right: 5px solid white;
+  border-bottom: 0;
+  border-left: 5px solid white;
+}
+
+.nine {
+  border-top: 5px solid white;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 5px solid white;
+}

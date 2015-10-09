@@ -1,6 +1,6 @@
 @font-face {
-  font-family:'Drawing Guides';
-  src: url('fonts/Drawing Guides.tff') format('truetype');
+  font-family:'EraserDust';
+  src: url('EraserDust.tff') format('truetype');
 }
 
 
@@ -18,7 +18,7 @@ body {
 
 
 h1 {
-  font-family: 'Rock Salt', cursive;
+  font-family: 'EraserDust';
   text-align: center;
   color:white;
 }
@@ -51,7 +51,8 @@ table {
 }
 
 .square:hover {
-  background-color: blue;
+  background-color: #4c4c4c;
+  border-radius:10px;
 }
 
 
@@ -87,7 +88,7 @@ table {
 }
 
 .playerA {
-   height: 200px;
+  height: 200px;
   width: 200px;
   margin: 50px;
   border: solid white 5px;
@@ -97,7 +98,7 @@ table {
 }
 
 .playerB {
-   height: 200px;
+  height: 200px;
   width: 200px;
   margin: 50px;
   border: solid white 5px;
@@ -106,6 +107,7 @@ table {
 }
 
 .letter {
-  font-size: 200%;
+  font-size: 400%;
 }
+
 
