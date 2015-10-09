@@ -13,6 +13,8 @@ var board = {
   nine: null
 }
 
+var squareClasses = [
+'one', 'two','three','four', 'five', 'six', 'seven', 'eight', 'nine']
 //Know whose turn it is
 
 var player = 'X';
@@ -20,25 +22,34 @@ var player = 'X';
 //determine how many turns have been played
 var turns = 0;
 
+//add the x or o to the board object
+var addToBoard = function(event){
+  var box =  event.target;
+  for(i = 0; i < squareClasses.length; i++)
+    if($(box).hasClass(squareClasses[i])){
+      board[squareClasses[i]] = player;
+  }
+}
+
 //Draw an x or o in the squares
 var placeX = function(event){
+  //determine whose turn it is
   if (turns%2 === 0){
     player = 'X';
   } else {
     player = 'O';
   }
-  $(this).append(player);
+  //add the appropriate x or o to the board
+  if(!$(this).text()){
+    $(this).append(player);
+  //increment the turns
   turns += 1;
+  addToBoard(event);
+  }
 }
-
 
 //Recognize a click in the square
 $('.square').on('click', placeX);
-
-// $('.square').on('click', function(event){
-//   alert("You clicked!")
-// });
-
 
 
 //Determine game over

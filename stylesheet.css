@@ -61,7 +61,7 @@ table {
   height: 28%;
   width: 28%;
   text-align: center;
-  font-size: 40px;
+  font-size: 120px;
 }
 
 .square:hover {
@@ -138,6 +138,10 @@ table {
     width: 700px;
     float:none;
   }
+
+  .square {
+    font-size: 90px;
+  }
   .sidebar{
     float:none;
     font-size: 50px;
@@ -157,8 +161,5 @@ table {
     width:;
   }
 
-  .square {
-
-  }
 
 }
