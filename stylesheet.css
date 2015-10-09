@@ -1,22 +1,22 @@
 @font-face {
     font-family: 'eraserregular';
-    src: url('EraserRegular-webfont.eot');
-    src: url('EraserRegular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('EraserRegular-webfont.woff') format('woff'),
+    src: url('fonts/EraserRegular-webfont.eot');
+    src: url('fonts/EraserRegular-webfont.eot?#iefix') format('fonts/embedded-opentype'),
+         url('fonts/EraserRegular-webfont.woff') format('woff'),
          url('EraserRegular-webfont.ttf') format('truetype'),
-         url('EraserRegular-webfont.svg#eraserregular') format('svg');
+         url('fonts/EraserRegular-webfont.svg#eraserregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'tally_markregular';
-    src: url('tally_mark-webfont.eot');
-    src: url('tally_mark-webfont.eot?#iefix') format('embedded-opentype'),
-         url('tally_mark-webfont.woff2') format('woff2'),
-         url('tally_mark-webfont.woff') format('woff'),
-         url('tally_mark-webfont.ttf') format('truetype'),
-         url('tally_mark-webfont.svg#tally_markregular') format('svg');
+    src: url('fonts/tally_mark-webfont.eot');
+    src: url('fonts/tally_mark-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/tally_mark-webfont.woff2') format('woff2'),
+         url('fonts/tally_mark-webfont.woff') format('woff'),
+         url('fonts/tally_mark-webfont.ttf') format('truetype'),
+         url('fonts/tally_mark-webfont.svg#tally_markregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -25,14 +25,14 @@ body {
   margin: 0;
   padding: 0;
   background-image: url('pictures/chalkboard-black.jpg');
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
   color: white;
   font-family:'eraserregular';
-
+  padding-left: 25%;
 }
 
 section {
@@ -40,7 +40,7 @@ section {
 }
 
 h1 {
-  margin-left: 190px;
+  margin-left: 100px;
   font-size: 60px;
 }
 
@@ -72,8 +72,8 @@ table {
 
 .sidebar {
   float: left;
-  color: white;
   text-align: center;
+  font-size: 30px;
 }
 
 .turn {
@@ -81,8 +81,6 @@ table {
   max-width: 200px;
   margin: 50px;
   border-radius: 10px;
-  font-size: 30px;
-  padding: 12px;
 }
 
 .score {
@@ -90,8 +88,6 @@ table {
   max-width: 200px;
   margin: 50px;
   border-radius: 12px;
-  font-size: 30px;
-  padding: 10px;
 }
 
 .players {
@@ -126,6 +122,43 @@ table {
 
 .tally {
   font-family: 'tally_markregular';
+  font-size: 2em;
 }
 
+/*@media only screen and (max-device-width: 1080px){*/
+@media only screen and (max-width: 1080px){
+  body {
+    padding: 0;
+  }
+  h1 {
+    font-size: 80px;
+  }
+  .table {
+    height: 700px;
+    width: 700px;
+    float:none;
+  }
+  .sidebar{
+    float:none;
+    font-size: 50px;
+    margin-left: 100px;
+  }
 
+   .turn {
+      float:left;
+      width: 50%;
+    }
+    .score {
+      float:left;
+      width:50%;
+    }
+  .players{
+    font-size: 40px;
+    width:;
+  }
+
+  .square {
+
+  }
+
+}
