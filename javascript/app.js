@@ -28,7 +28,19 @@ var player = 'X';
 var turns = 0;
 var winner = null;
 
+//Set player names
+var setPlayerNames = function(){
+  var playerA = $('#inputA').val();
+  var playerB = $('#inputB').val();
+  console.log(playerA)
+  $('.playerA').prepend(playerA);
+  $('.playerB').prepend(playerB);
+}
 
+//hide message div
+var hideMessage = function() {
+  $(".message").hide('fast');
+}
 
 //Determine winner
 var winsRow = function (player){
@@ -157,6 +169,8 @@ var placeX = function(event){
 }
 
 var playTicTacToe = function(){
+  $('button').on('click', setPlayerNames)
+  $('button').on('click', hideMessage)
   //Recognize a click in the square
   $('.square').on('click', placeX);
   $('.square').on('click', addToBoard);

@@ -44,6 +44,40 @@ h1 {
   font-size: 60px;
 }
 
+.message {
+  width: 600px;
+  height: 600px;
+  table-layout: fixed;
+  margin: 0 auto;
+  float: left;
+  margin-left: 100px;
+  font-family: 'eraserregular';
+  background-image: url('pictures/chalkboard-black.jpg');
+  position: absolute;
+  font-size: 25px;
+}
+
+input {
+  background-color: transparent;
+  font-size: 25px;
+  font-family: 'eraserregular';
+  border-radius: 10px;
+  border: 5px solid white;
+  margin: 20px;
+  color: white;
+  padding: 10px;
+}
+
+button {
+  background-color: transparent;
+  font-size: 25px;
+  font-family: 'eraserregular';
+  border-radius: 10px;
+  border: 5px solid white;
+  padding: 10px;
+  margin: 30px 0 0 275px;
+  color: white;
+}
 table {
 
   width: 600px;
@@ -56,6 +90,7 @@ table {
   font-family: 'eraserregular';
 
 }
+
 
 .square {
   height: 28%;
@@ -150,7 +185,7 @@ table {
   h1 {
     font-size: 80px;
   }
-  .table {
+  .table .message {
     height: 700px;
     width: 700px;
     float:none;
