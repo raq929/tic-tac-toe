@@ -91,7 +91,7 @@ var displayScore = function(winner){
   //if the tallies have reached five, add a line break and 1
   if (lastLetter === 'e'){
     str = str + '<br> a';
-//if there is no score, add 1
+  //if there is no score, add 1
   } else if (str === ''){
       str = 'a';
   //if the tallies are 1-4, replace and add the tally + 1
@@ -119,24 +119,27 @@ var displayWinner = function (player){
   score[winner] += 1;
   displayScore(winner);
   //display winner & play again message
-
-
   $('.message').show('fast');
   $('button').on('click', hideMessage);
+}
+
+var clearBoard = function (){
+  turns = 0;
+  for(i = 0; i < squareClasses.length; i++){
+    $('.'+ squareClasses[i]).text('');
+    board[squareClasses[i]] = null;
   winner = null;
+  }
+
 }
 var checkForWinner = function(player){
   //check for winner or tie
   if(turns > 4 && turns < 10 && winnerIs(player) || turns === 9){
     displayWinner(player);
     //start over, clear board
-    turns = 0;
-    for(i = 0; i < squareClasses.length; i++){
-      $('.'+ squareClasses[i]).text('');
-      board[squareClasses[i]] = null;
-    }
-  return true;
-  } return false;
+    clearBoard();
+    return true;
+  } else return false;
 }
 
 //add the x or o to the board object
