@@ -73,7 +73,6 @@ var displayScore = function(winner){
     }
 
   var str = $(column).text();
-  console.log($(column).text());
   var lastLetter = str.slice(-1);
   //if the tally count is 1-4, replace the last letter of the string with
   //the next tally mark
@@ -88,7 +87,7 @@ var displayScore = function(winner){
         for (var i = 0, length = tallies.length - 1; i < length; i++){
           if(lastLetter === tallies[i]){
           str = str.replace(lastLetter, tallies[i+1]);
-        }
+          }
         }
       }
   //Replace text in the html doc
@@ -96,7 +95,7 @@ var displayScore = function(winner){
 }
 
 var displayWinner = function (player){
-  //determines winner if there is one
+  //determines winner if there is one or shows a tie
   if(winnerIs(player)){
     winner = player;
     alert(winner + " wins!");
@@ -145,6 +144,13 @@ var placeX = function(event){
     //increment the turns
     turns += 1;
     addToBoard(event);
+    //set the turn indicator
+    var turnLetter = $('.turn .letter').text();
+    if(turnLetter === 'X'){
+      $('.turn .letter').text("O");
+    } else {
+      $('.turn .letter').text("X");
+    }
   }
   // see if there's a winner
   checkForWinner(player);
