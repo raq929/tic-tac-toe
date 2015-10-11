@@ -39,7 +39,7 @@ var setPlayerNames = function(){
 
 //hide message div
 var hideMessage = function() {
-  $(".message").hide('fast');
+  $(".message").hide('slow');
 }
 
 //Determine winner
@@ -119,7 +119,7 @@ var displayWinner = function (player){
   score[winner] += 1;
   displayScore(winner);
   //display winner & play again message
-  $('.message').show('fast');
+  $('.message').show('slow');
   $('button').on('click', hideMessage);
 }
 
