@@ -21,13 +21,11 @@ var score = {
   'O': 0,
   'tie': 0
 }
-//Know whose turn it is
+
+var tallies = ['a', 'b', 'c', 'd', 'e']
 
 var player = 'X';
-
-//determine how many turns have been played
 var turns = 0;
-
 var winner = null;
 
 
@@ -114,6 +112,43 @@ var playTicTacToe = function(){
   alert("let's play!");
   $('.square').on('click', placeX);
   $('.square').on('click', addToBoard);
+}
+
+var displayScore = function(score){
+  //score is only incremented for the winning player
+  //if the tallies have reached 5, add a new line
+  var column
+
+  switch(winner){
+    case 'X':
+    column = '.scoreX'
+    break;
+
+    case 'O':
+    column = 'scoreO'
+
+    case 'tie':
+    column = 'scoreTie'
+    }
+
+  str = $(column).text()
+  //if the tally count is 1-4, replace the last letter of the string with
+  //the next tally mark
+  for (var i = 0, length = tallies.length - 1; i < length; i++){
+    if(str.endswith(tallies[i])){
+      var lastLetter = tallies[i];
+      str = str.replace(lastLetter, tallies[i+1]);
+      //if there is no score, add 1
+    } else if (str === ''){
+      str = 'a';
+      //if the tallies have reached five, add a line break and 1
+    } else {
+      str = str + '<br> a';
+    }
+  }
+  //Replace text in the html doc
+  $(column).text(str);
+
 }
 
 playTicTacToe();
