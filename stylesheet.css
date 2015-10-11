@@ -55,6 +55,7 @@ h1 {
   background-image: url('pictures/chalkboard-black.jpg');
   position: absolute;
   font-size: 25px;
+  text-align: center;
 }
 
 input {
@@ -145,6 +146,7 @@ table {
   font-family: 'tally_markregular';
   font-size: 1em;
   text-decoration: none;
+  text-align: left;
 }
 
 .players {

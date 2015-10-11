@@ -110,15 +110,19 @@ var displayWinner = function (player){
   //determines winner if there is one or shows a tie
   if(winnerIs(player)){
     winner = player;
-    alert(winner + " wins!");
+    $('.message').html(winner + ' wins! <br> <button type="button">Play Again!</button>')
   } else {
     winner = 'tie'
-    alert("It's a tie");
+    $('.message').html('It\'s a tie <br> <button type="button">Play Again!</button>');
   }
   //increments scoreboard
   score[winner] += 1;
   displayScore(winner);
-  //display winner, score & play again message
+  //display winner & play again message
+
+
+  $('.message').show('fast');
+  $('button').on('click', hideMessage);
   winner = null;
 }
 var checkForWinner = function(player){
@@ -131,7 +135,8 @@ var checkForWinner = function(player){
       $('.'+ squareClasses[i]).text('');
       board[squareClasses[i]] = null;
     }
-  }
+  return true;
+  } return false;
 }
 
 //add the x or o to the board object
@@ -150,27 +155,31 @@ var placeX = function(event){
   } else {
     player = 'O';
   }
-  //add the appropriate x or o to the board
+  //add the appropriate x or o to the board object
   if(!$(this).text()){
     $(this).append(player);
     //increment the turns
     turns += 1;
     addToBoard(event);
+  }
+  // see if there's a winner
+
+  if(!checkForWinner(player)){
     //set the turn indicator
-    var turnLetter = $('.turn .letter').text();
-    if(turnLetter === 'X'){
+    if(player === 'X'){
       $('.turn .letter').text("O");
     } else {
       $('.turn .letter').text("X");
     }
-  }
-  // see if there's a winner
-  checkForWinner(player);
+  } else {
+      $('.turn .letter').text("X");
+    }
+
 }
 
 var playTicTacToe = function(){
-  $('button').on('click', setPlayerNames)
-  $('button').on('click', hideMessage)
+  $('button').on('click', setPlayerNames);
+  $('button').on('click', hideMessage);
   //Recognize a click in the square
   $('.square').on('click', placeX);
   $('.square').on('click', addToBoard);
