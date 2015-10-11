@@ -49,13 +49,15 @@ h1 {
   height: 600px;
   table-layout: fixed;
   margin: 0 auto;
-  float: left;
   margin-left: 100px;
   font-family: 'eraserregular';
   background-image: url('pictures/chalkboard-black.jpg');
   position: absolute;
   font-size: 25px;
   text-align: center;
+  padding: 20px;
+  border: 5px solid white;
+  border-radius: 10px;
 }
 
 input {
@@ -76,7 +78,7 @@ button {
   border-radius: 10px;
   border: 5px solid white;
   padding: 10px;
-  margin: 30px 0 0 275px;
+  margin: 30px 0 0 0;
   color: white;
 }
 table {
