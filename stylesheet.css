@@ -90,6 +90,28 @@ table {
   border-radius: 12px;
 }
 
+.scoreX{
+  float: left;
+  text-decoration: underline;
+}
+
+.scoreO{
+  float: left;
+  text-decoration: underline;
+  margin: 0 20px 0 20px;
+}
+
+.scoreTie{
+  float: left;
+  text-decoration: underline;
+}
+
+.tally {
+  font-family: 'tally_markregular';
+  font-size: 2em;
+  text-decoration: none;
+}
+
 .players {
   text-align: center;
   clear:left;
@@ -104,7 +126,6 @@ table {
   border-radius: 12px;
   padding: 10px;
   float:left;
-
 }
 
 .playerB {
@@ -120,10 +141,6 @@ table {
   font-size: 300%;
 }
 
-.tally {
-  font-family: 'tally_markregular';
-  font-size: 2em;
-}
 
 /*@media only screen and (max-device-width: 1080px){*/
 @media only screen and (max-width: 1080px){
