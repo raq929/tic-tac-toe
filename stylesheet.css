@@ -52,6 +52,11 @@ h1 {
   margin-left: 100px;
   font-family: 'eraserregular';
   background-image: url('pictures/chalkboard-black.jpg');
+  background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
   position: absolute;
   font-size: 25px;
   text-align: center;
