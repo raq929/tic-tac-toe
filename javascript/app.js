@@ -194,7 +194,6 @@ var playTicTacToe = function(){
   $('button').on('click', hideMessage);
   //Recognize a click in the square, add it to the board
   $('.square').on('click', placeX);
-  $('.square').on('click', addToBoard);
 }
 
 playTicTacToe();
