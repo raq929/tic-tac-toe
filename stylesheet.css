@@ -44,6 +44,48 @@ h1 {
   font-size: 60px;
 }
 
+.message {
+  width: 600px;
+  height: 600px;
+  table-layout: fixed;
+  margin: 0 auto;
+  margin-left: 100px;
+  font-family: 'eraserregular';
+  background-image: url('pictures/chalkboard-black.jpg');
+  background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  position: absolute;
+  font-size: 40px;
+  text-align: center;
+  padding: 20px;
+  border: 5px solid white;
+  border-radius: 10px;
+}
+
+input {
+  background-color: transparent;
+  font-size: 25px;
+  font-family: 'eraserregular';
+  border-radius: 10px;
+  border: 5px solid white;
+  margin: 50px 0 0 0;
+  color: white;
+  padding: 10px;
+}
+
+button {
+  background-color: transparent;
+  font-size: 40px;
+  font-family: 'eraserregular';
+  border-radius: 10px;
+  border: 5px solid white;
+  padding: 10px;
+  margin: 30px 0 0 0;
+  color: white;
+}
 table {
 
   width: 600px;
@@ -57,11 +99,12 @@ table {
 
 }
 
+
 .square {
   height: 28%;
   width: 28%;
   text-align: center;
-  font-size: 40px;
+  font-size: 120px;
 }
 
 .square:hover {
@@ -85,31 +128,34 @@ table {
 
 .score {
   max-height: 400px;
-  max-width: 200px;
+  max-width: 250px;
   margin: 50px;
   border-radius: 12px;
 }
 
 .scoreX{
   float: left;
-  text-decoration: underline;
+  margin-left: 20px;
 }
 
 .scoreO{
   float: left;
-  text-decoration: underline;
-  margin: 0 20px 0 20px;
+  margin: 0 40px 0 40px;
 }
 
 .scoreTie{
   float: left;
+}
+
+.underline{
   text-decoration: underline;
 }
 
 .tally {
   font-family: 'tally_markregular';
-  font-size: 2em;
+  font-size: 1em;
   text-decoration: none;
+  text-align: left;
 }
 
 .players {
@@ -150,10 +196,14 @@ table {
   h1 {
     font-size: 80px;
   }
-  .table {
+  .table .message {
     height: 700px;
     width: 700px;
     float:none;
+  }
+
+  .square {
+    font-size: 90px;
   }
   .sidebar{
     float:none;
@@ -174,8 +224,5 @@ table {
     width:;
   }
 
-  .square {
-
-  }
 
 }

@@ -10,22 +10,30 @@
 <body>
 <section>
   <h1>Tic-tac-toe</h1>
+
+  <div class = 'message'>
+    Let's play Tic-tac-toe!<br>
+    Player 1: <input type="text" placeholder="Name" id = 'inputA'><br>
+    Player 2: <input type="text" placeholder="Name" id = 'inputB'><br>
+    <button type="button">Ready!</button>
+  </div>
+
   <div class='board'>
     <table class='board'>
     <tr>
-      <td class = 'square one'>this</td>
-      <td class = 'square two'>is</td>
-      <td class = 'square three'>a</td>
+      <td class = 'square one' id = 'one'></td>
+      <td class = 'square two'></td>
+      <td class = 'square three'></td>
     </tr>
     <tr>
-      <td class = 'square four'>cell</td>
-      <td class = 'square five'>in</td>
-      <td class = 'square six'>my</td>
+      <td class = 'square four'></td>
+      <td class = 'square five'></td>
+      <td class = 'square six'></td>
     </tr>
     <tr>
-      <td class = 'square seven'>stupid</td>
-      <td class = 'square eight'>table</td>
-      <td class = 'square nine'>OK</td>
+      <td class = 'square seven'></td>
+      <td class = 'square eight'></td>
+      <td class = 'square nine'></td>
     </tr>
   </table>
   </div>
@@ -34,20 +42,23 @@
 <div class ='sidebar'>
   <div class = 'turn'>Turn:<br><span class = 'letter'>X</span></div>
   <div class = 'score'>
-    Score:
-    <div class = 'scoreX'>X<span class = 'tally'></span></div>
-    <div class = 'scoreO'>O<span class = 'tally'></span> </div>
-    <div class = 'scoreTie'>Tie<span class = 'tally'></span> </div>
+    Score:<br>
+    <div class = 'scoreX'><span class = underline>X</span><br><span class = 'tally'></span></div>
+    <div class = 'scoreO'><span class = underline>O</span><br><span class = 'tally'></span> </div>
+    <div class = 'scoreTie'><span class = underline>Tie</span><br><span class = 'tally'></span> </div>
   </div>
 </div>
 
 <div class = 'players'>
-<div class = 'playerA'>Player A <br><span class = 'letter'>X</span></div>
-<div class = 'playerB'>Player B<br><span class = 'letter'>O</span></div>
+<div class = 'playerA'><br><span class = 'letter'>X</span></div>
+<div class = 'playerB'><br><span class = 'letter'>O</span></div>
 </div>
+
+
 </section>
 
 
 <script src="javascript/jquery-2.1.4.min.js" type="application/javascript"></script>
+<script src="javascript/app.js" type = "application/javascript"></script>
 </body>
 </html>
