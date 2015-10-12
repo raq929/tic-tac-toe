@@ -13,26 +13,31 @@ var board = {
   nine: null
 }
 
+//array of CSS class for each square
 var squareClasses = [
 'one', 'two','three','four', 'five', 'six', 'seven', 'eight', 'nine']
 
+//I think this is no longer necessary, but nice to have if the tallies aren't right
 var score = {
   'X': 0,
   'O': 0,
   'tie': 0
 }
 
+//array of the letters that correspond to tally marks 1-5
 var tallies = ['a', 'b', 'c', 'd', 'e']
 
+//Initial conditions
 var player = 'X';
 var turns = 0;
 var winner = null;
 
 //Set player names
 var setPlayerNames = function(){
+  //get input from input fields
   var playerA = $('#inputA').val();
   var playerB = $('#inputB').val();
-  console.log(playerA)
+  //Add input to the player divs
   $('.playerA').prepend(playerA);
   $('.playerB').prepend(playerB);
 }
@@ -40,6 +45,7 @@ var setPlayerNames = function(){
 //hide message div
 var hideMessage = function() {
   $(".message").hide('slow');
+  clearBoard();
 }
 
 //Determine winner
@@ -64,7 +70,7 @@ var winnerIs = function (player) {
   return winsRow(player) || winsColumn(player) || winsDiagonal(player);
 }
 
-
+//display the score as tally marks on the screen
 var displayScore = function(winner){
   //score is only incremented for the winning player
   //if the tallies have reached 5, add a new line
@@ -95,17 +101,18 @@ var displayScore = function(winner){
   } else if (str === ''){
       str = 'a';
   //if the tallies are 1-4, replace and add the tally + 1
-    } else {
-        for (var i = 0, length = tallies.length - 1; i < length; i++){
-          if(lastLetter === tallies[i]){
-          str = str.replace(lastLetter, tallies[i+1]);
-          }
-        }
+  } else {
+    for (var i = 0, length = tallies.length - 1; i < length; i++){
+      if(lastLetter === tallies[i]){
+        str = str.replace(lastLetter, tallies[i+1]);
       }
+    }
+  }
   //Replace text in the html doc
   $(column).html(str);
 }
 
+//determines who the winner is and calls up the message div to display it
 var displayWinner = function (player){
   //determines winner if there is one or shows a tie
   if(winnerIs(player)){
@@ -123,6 +130,7 @@ var displayWinner = function (player){
   $('button').on('click', hideMessage);
 }
 
+//resets initial conditions
 var clearBoard = function (){
   turns = 0;
   for(i = 0; i < squareClasses.length; i++){
@@ -130,14 +138,14 @@ var clearBoard = function (){
     board[squareClasses[i]] = null;
   winner = null;
   }
-
 }
+
+//checks if there is a winner, calls displayWinner (returns a Boolean)
 var checkForWinner = function(player){
   //check for winner or tie
-  if(turns > 4 && turns < 10 && winnerIs(player) || turns === 9){
+  if(turns > 4 && winnerIs(player) || turns === 9){
     displayWinner(player);
     //start over, clear board
-    clearBoard();
     return true;
   } else return false;
 }
@@ -151,6 +159,8 @@ var addToBoard = function(event){
   }
 }
 //Draw an x or o in the squares
+//Add an x or o in the appropriate place in the board object
+//Indicate whose turn is next.
 var placeX = function(event){
   //determine whose turn it is
   if (turns%2 === 0){
@@ -164,26 +174,25 @@ var placeX = function(event){
     //increment the turns
     turns += 1;
     addToBoard(event);
-  }
-  // see if there's a winner
-
-  if(!checkForWinner(player)){
+    if(!checkForWinner(player)){
     //set the turn indicator
-    if(player === 'X'){
-      $('.turn .letter').text("O");
+      if(player === 'X'){
+        $('.turn .letter').text("O");
+      } else {
+        $('.turn .letter').text("X");
+      }
     } else {
       $('.turn .letter').text("X");
     }
-  } else {
-      $('.turn .letter').text("X");
-    }
-
+  }
 }
 
+//set click handlers
 var playTicTacToe = function(){
+  //click handlers on initial message div
   $('button').on('click', setPlayerNames);
   $('button').on('click', hideMessage);
-  //Recognize a click in the square
+  //Recognize a click in the square, add it to the board
   $('.square').on('click', placeX);
   $('.square').on('click', addToBoard);
 }
@@ -191,8 +200,3 @@ var playTicTacToe = function(){
 playTicTacToe();
 
 
-
-
-
-
-//Indicate game score
