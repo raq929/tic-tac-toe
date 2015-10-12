@@ -134,11 +134,13 @@ var displayWinner = function (player){
 //resets initial conditions
 var clearBoard = function (){
   turns = 0;
-  gamesCompleted += 1;
+  winner = null;
   for(i = 0; i < squareClasses.length; i++){
     $('.'+ squareClasses[i]).text('');
     board[squareClasses[i]] = null;
-  winner = null;
+  }
+  if (gamesCompleted%2 === 1){
+    $('.turn .letter').text("O");
   }
 }
 
@@ -147,6 +149,7 @@ var checkForWinner = function(player){
   //check for winner or tie
   if(turns > 4 && winnerIs(player) || turns === 9){
     displayWinner(player);
+    gamesCompleted += 1;
     //start over, clear board
     return true;
   } else return false;
