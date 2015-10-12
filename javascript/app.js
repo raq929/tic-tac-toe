@@ -28,9 +28,10 @@ var score = {
 var tallies = ['a', 'b', 'c', 'd', 'e']
 
 //Initial conditions
-var player = 'X';
+var player;
 var turns = 0;
 var winner = null;
+var gamesCompleted = 0;
 
 //Set player names
 var setPlayerNames = function(){
@@ -133,6 +134,7 @@ var displayWinner = function (player){
 //resets initial conditions
 var clearBoard = function (){
   turns = 0;
+  gamesCompleted += 1;
   for(i = 0; i < squareClasses.length; i++){
     $('.'+ squareClasses[i]).text('');
     board[squareClasses[i]] = null;
@@ -158,22 +160,43 @@ var addToBoard = function(event){
       board[squareClasses[i]] = player;
   }
 }
+
+var switchTurns = function(){
+  //determine whose turn it is
+  //if an even number of games have been completed, X goes first
+  if (gamesCompleted%2 === 0) {
+    //if an even number of turns have been taken, it is X's turn
+    //if not, it is O's turn
+    if (turns%2 === 0){
+      player = 'X';
+    } else {
+      player = 'O';
+    }
+  } else {
+    //for odd numbered games, O goes first.
+    if (turns%2 === 0){
+      player = 'O';
+    } else {
+      player = 'X';
+    }
+  }
+}
+
 //Draw an x or o in the squares
 //Add an x or o in the appropriate place in the board object
 //Indicate whose turn is next.
 var placeX = function(event){
-  //determine whose turn it is
-  if (turns%2 === 0){
-    player = 'X';
-  } else {
-    player = 'O';
-  }
-  //add the appropriate x or o to the board object
+  switchTurns();
+
+  //add the appropriate x or o to the table div
   if(!$(this).text()){
     $(this).append(player);
     //increment the turns
     turns += 1;
+    //after successful click, add player marker to the board object
     addToBoard(event);
+    //if there is no winner, change the turn indicator
+    // if there is a winner, running checkForWinner will trigger the message div
     if(!checkForWinner(player)){
     //set the turn indicator
       if(player === 'X'){
