@@ -110,7 +110,8 @@ var displayScore = function(winner){
     column = '.scoreTie .tally';
     break;
     }
-
+  //Inserts an HTML version of the new score into
+  //the appropriate column on the scoreboard.
   $(column).html(scoreToHTML(score[winner]));
 }
 

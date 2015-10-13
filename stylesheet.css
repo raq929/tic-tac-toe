@@ -49,7 +49,7 @@ h1 {
   height: 600px;
   table-layout: fixed;
   margin: 0 auto;
-  margin-left: 100px;
+  margin-left: 0px;
   font-family: 'eraserregular';
   background-image: url('pictures/chalkboard-black.jpg');
   background-repeat: no-repeat;
@@ -93,7 +93,7 @@ table {
   table-layout: fixed;
   margin: 0 auto;
   float: left;
-  margin-left: 100px;
+  margin-left: 0px;
   border-collapse: collapse;
   font-family: 'eraserregular';
 
@@ -116,35 +116,38 @@ table {
 .sidebar {
   float: left;
   text-align: center;
-  font-size: 30px;
+  font-size: 40px;
 }
 
 .turn {
   max-height: 200px;
   max-width: 200px;
-  margin: 50px;
+  margin: 30px;
   border-radius: 10px;
 }
 
 .score {
   max-height: 400px;
-  max-width: 250px;
+  max-width: 300px;
+  min-width: 160px;
   margin: 50px;
   border-radius: 12px;
+  text-align: left;
 }
 
 .scoreX{
   float: left;
-  margin-left: 20px;
+  width: 29%;
 }
 
 .scoreO{
   float: left;
-  margin: 0 40px 0 40px;
+  width: 29%;
 }
 
 .scoreTie{
   float: left;
+  width:29%;
 }
 
 .underline{
@@ -161,7 +164,7 @@ table {
 .players {
   text-align: center;
   clear:left;
-  margin-left: 100px;
+  margin-left: 250px;
   font-size: 30px;
 }
 
@@ -189,40 +192,47 @@ table {
 
 
 /*@media only screen and (max-device-width: 1080px){*/
-@media only screen and (max-width: 1080px){
-  body {
-    padding: 0;
-  }
+@media only screen and (max-width: 1140px){
+
   h1 {
     font-size: 80px;
+    margin: 0 auto;
   }
-  .table .message {
+  .table {
+    height:700px;
+    width: 700px;
+    float: none;
+    margin: 0 auto;
+  }
+
+  .message {
     height: 700px;
     width: 700px;
     float:none;
+    margin: 0 auto;
   }
 
   .square {
     font-size: 90px;
   }
   .sidebar{
-    float:none;
     font-size: 50px;
-    margin-left: 100px;
+    max-width: 700px;
+    margin-left: 0px;
   }
 
    .turn {
       float:left;
-      width: 50%;
+      max-width: 50%;
     }
     .score {
       float:left;
-      width:50%;
+      max-width:50%;
     }
+
   .players{
     font-size: 40px;
-    width:;
+    margin-left: 100px;
   }
-
-
 }
+
