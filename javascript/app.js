@@ -22,10 +22,10 @@ var score = {
   'X': 0,
   'O': 0,
   'tie': 0
-}
+};
 
 //array of the letters that correspond to tally marks 1-5
-var tallies = ['a', 'b', 'c', 'd', 'e']
+var tallies = ['a', 'b', 'c', 'd', 'e'];
 
 //Initial conditions
 var player;
@@ -71,6 +71,26 @@ var winnerIs = function (player) {
   return winsRow(player) || winsColumn(player) || winsDiagonal(player);
 }
 
+
+//Converts score(number) to a tally mark.
+ scoreToHTML = function(number){
+  var fives = 0;
+  var ones = number % 5;
+  var string = '';
+  //if there will be a fives tally, create the string for it
+  if(number > 4){
+    fives = Math.floor(number/5);
+    for(i = 0; i < fives; i++){
+      string = string + "e <br>";
+    }
+  }
+  //if there will be a ones tally, append that to the string
+  if(ones !== 0){
+     string = string + tallies[ones-1];
+    }
+  return string;
+}
+
 //display the score as tally marks on the screen
 var displayScore = function(winner){
   //score is only incremented for the winning player
@@ -91,26 +111,7 @@ var displayScore = function(winner){
     break;
     }
 
-  var str = $(column).text();
-  var lastLetter = str.slice(-1);
-  //if the tally count is 1-4, replace the last letter of the string with
-  //the next tally mark
-  //if the tallies have reached five, add a line break and 1
-  if (lastLetter === 'e'){
-    str = str + '<br> a';
-  //if there is no score, add 1
-  } else if (str === ''){
-      str = 'a';
-  //if the tallies are 1-4, replace and add the tally + 1
-  } else {
-    for (var i = 0, length = tallies.length - 1; i < length; i++){
-      if(lastLetter === tallies[i]){
-        str = str.replace(lastLetter, tallies[i+1]);
-      }
-    }
-  }
-  //Replace text in the html doc
-  $(column).html(str);
+  $(column).html(scoreToHTML(score[winner]));
 }
 
 //determines who the winner is and calls up the message div to display it
