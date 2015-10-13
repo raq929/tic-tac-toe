@@ -2,16 +2,18 @@
 
 //create a representation of the game board
 var board = {
-  one: null,
-  two: null,
-  three: null,
-  four: null,
-  five:null,
-  six:null,
-  seven: null,
-  eight: null,
-  nine: null
+  one: '',
+  two: '',
+  three: '',
+  four: '',
+  five:'',
+  six:'',
+  seven: '',
+  eight: '',
+  nine: ''
 }
+
+var gameState = []
 
 //array of CSS class for each square
 var squareClasses = [
@@ -32,6 +34,26 @@ var player;
 var turns = 0;
 var winner = null;
 var gamesCompleted = 0;
+
+
+//write a function that maps the board object to an array
+var boardToArray = function(board){
+  var array = [];
+  for(var i =0, length = squareClasses.length; i < length; i++ ){
+    gameState.push(board[squareClasses[i]]);
+  }
+}
+
+//write a function that maps an array to the board object
+
+var arrayToBoard = function(array){
+  for(var i =0, length = squareClasses.length; i < length; i++ ){
+    board[squareClasses[i]] = array[i];
+  }
+}
+
+//write a clickhandler that updates a game
+
 
 //Set player names
 var setPlayerNames = function(){
@@ -138,7 +160,7 @@ var clearBoard = function (){
   winner = null;
   for(i = 0; i < squareClasses.length; i++){
     $('.'+ squareClasses[i]).text('');
-    board[squareClasses[i]] = null;
+    board[squareClasses[i]] = '';
   }
   if (gamesCompleted%2 === 1){
     $('.turn .letter').text("O");
