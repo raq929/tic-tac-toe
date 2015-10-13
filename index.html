@@ -12,10 +12,12 @@
   <h1>Tic-tac-toe</h1>
 
   <div class = 'message'>
-    Let's play Tic-tac-toe!<br>
-    Player 1: <input type="text" placeholder="Name" id = 'inputA'><br>
-    Player 2: <input type="text" placeholder="Name" id = 'inputB'><br>
-    <button type="button">Ready!</button>
+    <form id="register">
+    <input name="email" type="text" placeholder="email">
+    <input name="password" type="password" placeholder="password">
+    <input name="password_confirmation" type="password" placeholder="password confirmation">
+    <input name="register" type="submit" value="Register">
+  </form>
   </div>
 
   <div class='board'>
@@ -59,6 +61,8 @@
 
 
 <script src="javascript/jquery-2.1.4.min.js" type="application/javascript"></script>
+<script src="javascript/antonysCode.js" type = "application/javascript"></script>
 <script src="javascript/app.js" type = "application/javascript"></script>
+<script src="javascript/ajax.js" type = "application/javascript"></script>
 </body>
 </html>
