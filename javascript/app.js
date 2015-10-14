@@ -61,6 +61,11 @@ var loadGame = function(array){
   }
 };
 
+var wrap = function wrap(root, formData) {
+    var wrapper = {};
+    wrapper[root] = formData;
+    return wrapper;
+  };
 //write a clickhandler that updates a game
 
 
@@ -235,12 +240,13 @@ var updateServer = function(board, player, gameState) {
     });
 
   var data = wrap('game', wrap('cell', {'index': changedCellIndex, 'value': player}));
-  e.preventDefault();
+
 
   tttapi.markCell(currentGame, data, currentToken, function callback(error, data) {
     if (error) {
       console.log(error);
       $('#result').val('status: ' + error.status + ', error: ' +error.error);
+      error.preventDefault();
       return;
     }
   });
@@ -274,9 +280,9 @@ var placeX = function(event){
       }
       //listen for other player's turn
       var listenForPlay = function (){
-        tttapi.showGame(currentGame, currentToken, function(data){
+        tttapi.showGame(currentGame, currentToken, function(error, data){
           //when the data from Show is differnt from the data I have
-          if (!data.game.cells.every(function (){
+          if (!data.game.cells.every(function (currentValue, index){
             return currentValue === gameState[index];
           })) {
             //update the game board

@@ -182,7 +182,7 @@ $(function() {
       }
       currentGame = data.game.id;
       player_x = data.game.player_x.id;
-      $('#result').val('Game number: ' + currentGame + '.  You are X');
+      $('#result').val('Game number: ' + currentGame + '.  You are X. Please put your game number in the Show Game field and click the button to begin your game.');
     });
   });
 
