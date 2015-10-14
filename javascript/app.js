@@ -52,6 +52,17 @@ var arrayToBoard = function(array){
   }
 }
 
+
+var loadGame = function(array){
+  arrayToBoard(array);
+  for(var i =0, length = squareClasses.length; i < length; i++ ){
+    $('.' + squareClasses[i]).text(board[squareClasses[i]]);
+    if(board[squareClasses[i]]){
+      turns+=1;
+    }
+  }
+}
+
 //write a clickhandler that updates a game
 
 

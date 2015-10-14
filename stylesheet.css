@@ -58,7 +58,7 @@ h1 {
     -o-background-size: cover;
     background-size: cover;
   position: absolute;
-  font-size: 40px;
+  font-size: 25px;
   text-align: center;
   padding: 20px;
   border: 5px solid white;
@@ -67,23 +67,26 @@ h1 {
 
 input {
   background-color: transparent;
+  font-size: 20px;
+  font-family: 'helvetica';
+  border-radius: 10px;
+  border: 5px solid white;
+  margin: 5px 0 0 0;
+  color: white;
+  padding: 10px;
+}
+textarea {
+  height: 150px;
+  width: 250px;
+}
+button {
+  background-color: transparent;
   font-size: 25px;
   font-family: 'eraserregular';
   border-radius: 10px;
   border: 5px solid white;
-  margin: 50px 0 0 0;
-  color: white;
-  padding: 10px;
-}
-
-button {
-  background-color: transparent;
-  font-size: 40px;
-  font-family: 'eraserregular';
-  border-radius: 10px;
-  border: 5px solid white;
-  padding: 10px;
-  margin: 30px 0 0 0;
+  padding: 5px;
+  margin: 5px 0 0 0;
   color: white;
 }
 table {

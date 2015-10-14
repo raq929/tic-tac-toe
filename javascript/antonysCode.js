@@ -126,18 +126,12 @@ $(function() {
 
   var callback = function callback(error, data) {
     if (error) {
-      console.error(error);
+      console.log(error);
       $('#result').val('status: ' + error.status + ', error: ' +error.error);
       return;
     }
     $('#result').val(JSON.stringify(data, null, 4));
   };
-
-  $('#register').on('submit', function(e) {
-    var credentials = wrap('credentials', form2object(this));
-    tttapi.register(credentials, callback);
-    e.preventDefault();
-  });
 
   $('#login').on('submit', function(e) {
     var credentials = wrap('credentials', form2object(this));
@@ -147,6 +141,7 @@ $(function() {
         return;
       }
       callback(null, data);
+      $('#login, #register').hide();
       $('.token').val(data.user.token);
     };
     e.preventDefault();
@@ -157,6 +152,12 @@ $(function() {
     var token = $(this).children('[name="token"]').val();
     e.preventDefault();
     tttapi.listGames(token, callback);
+  });
+
+  $('#register').on('submit', function(e) {
+    var credentials = wrap('credentials', form2object(this));
+    tttapi.register(credentials, callback);
+    e.preventDefault();
   });
 
   $('#create-game').on('submit', function(e) {
@@ -176,7 +177,18 @@ $(function() {
     var token = $(this).children('[name="token"]').val();
     var id = $('#join-id').val();
     e.preventDefault();
-    tttapi.joinGame(id, token, callback);
+    tttapi.joinGame(id, token, function(error, data){
+      if (error) {
+      console.log(error);
+      $('#result').val('status: ' + error.status + ', error: ' +error.error);
+      return;
+    }
+    $('#result').val(JSON.stringify(data, null, 4));
+    gameState = data.game.cells;
+    loadGame(gameState);
+    $('.gameID').val(data.game.id);
+    $('.message').hide();
+    });
   });
 
   $('#mark-cell').on('submit', function(e) {
@@ -184,7 +196,13 @@ $(function() {
     var id = $('#mark-id').val();
     var data = wrap('game', wrap('cell', form2object(this)));
     e.preventDefault();
-    tttapi.markCell(id, data, token, callback);
+    tttapi.markCell(id, data, token, function callback(error, data) {
+      if (error) {
+        console.log(error);
+        $('#result').val('status: ' + error.status + ', error: ' +error.error);
+        return;
+      }
+    });
   });
 
   $('#watch-game').on('submit', function(e){
@@ -209,5 +227,4 @@ $(function() {
       console.error('an error has occured with the stream', e);
     });
   });
-
 });

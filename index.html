@@ -13,15 +13,45 @@
 
   <div class = 'message'>
     <form id="register">
+      <input name="email" type="text" placeholder="email">
+      <input name="password" type="password" placeholder="password">
+      <input name="password_confirmation" type="password" placeholder="password confirmation">
+      <input name="register" type="submit" value="Register">
+    </form>
+  <form id="login">
     <input name="email" type="text" placeholder="email">
     <input name="password" type="password" placeholder="password">
-    <input name="password_confirmation" type="password" placeholder="password confirmation">
-    <input name="register" type="submit" value="Register">
+    <input name="login" type="submit" value="Login">
   </form>
+  <form id="list-games">
+    <input name="list-games" type="submit" value="List Games">
+    <input class="token" name="token" type="hidden">
+  </form>
+  <form id="create-game">
+    <input name="create-game" type="submit" value="Create Game">
+    <input class="token" name="token" type="hidden">
+  </form>
+  <form id="show-game">
+    <label for="show-id">Id:</label>
+    <input id="show-id" type="text" size="4">
+    <input name="show-game" type="submit" value="Show Game">
+    <input class="token" name="token" type="hidden">
+ </form>
+  <form id="join-game">
+    <label for="join-id">Id:</label>
+    <input id="join-id" type="text" size="4">
+    <input name="join-game" type="submit" value="Join Game">
+    <input class="token" name="token" type="hidden">
+ </form>
+ <label for="result">Result</label>
+  <textarea id="result"></textarea>
+
   </div>
 
   <div class='board'>
     <table class='board'>
+    <input class="token" name="token" type="hidden">
+    <input class="gameID" name="gameID" type="hidden">
     <tr>
       <td class = 'square one' id = 'one'></td>
       <td class = 'square two'></td>
