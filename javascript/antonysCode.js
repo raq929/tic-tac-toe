@@ -3,6 +3,7 @@
 var gameState = [];
 var currentToken;
 var currentGame;
+var playerID = null;
 var player_x = null;
 var player_o = null;
 
@@ -152,6 +153,7 @@ $(function() {
       $('.token').val(data.user.token);
       console.log(data.user.token)
       currentToken = data.user.token;
+      playerID = data.user.id;
     };
     e.preventDefault();
     tttapi.login(credentials, cb);
@@ -188,8 +190,32 @@ $(function() {
     var token = $(this).children('[name="token"]').val();
     var id = $('#show-id').val();
     e.preventDefault();
-    tttapi.showGame(id, token, callback);
+    tttapi.showGame(id, token, function(error, data){
+      if (error) {
+      console.log(error);
+      $('#result').val('status: ' + error.status + ', error: ' +error.error);
+      return;
+    }
+    $('#result').val(JSON.stringify(data, null, 4));
+    //set the gameState array to the data from the server
+    gameState = data.game.cells;
+    //sets permisisons to play x or o
+    if(playerID === data.game.player_x.id){
+      player_x = playerID;
+      player_o = null;
+    } else {
+      player_o = playerID;
+      player_x = null;
+    }
+     //store the game ID
+    currentGame = data.game.id;
+    //populate the board
+    loadGame(gameState);
+    //hide the message div
+    $('.message').hide();
+    });
   });
+
 
   $('#join-game').on('submit', function(e, currentToken) {
     var token = $(this).children('[name="token"]').val();
@@ -208,7 +234,7 @@ $(function() {
     //populate the board
     loadGame(gameState);
     //store the game ID
-    $('.gameID').val(data.game.id);
+    currentGame = data.game.id;
     //hide the message div
     $('.message').hide();
     });
