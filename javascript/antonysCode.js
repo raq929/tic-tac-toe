@@ -143,6 +143,7 @@ $(function() {
       callback(null, data);
       $('#login, #register').hide();
       $('.token').val(data.user.token);
+      currentToken = data.user.token;
     };
     e.preventDefault();
     tttapi.login(credentials, cb);
@@ -164,6 +165,8 @@ $(function() {
     var token = $(this).children('[name="token"]').val();
     e.preventDefault();
     tttapi.createGame(token, callback);
+    currentGame = data.game.id;
+    player_x = data.game.player_x.id;
   });
 
   $('#show-game').on('submit', function(e) {
@@ -175,25 +178,30 @@ $(function() {
 
   $('#join-game').on('submit', function(e) {
     var token = $(this).children('[name="token"]').val();
-    var id = $('#join-id').val();
+    var currentGame = $('#join-id').val();
     e.preventDefault();
-    tttapi.joinGame(id, token, function(error, data){
+    tttapi.joinGame(currentGame, token, function(error, data){
       if (error) {
       console.log(error);
       $('#result').val('status: ' + error.status + ', error: ' +error.error);
       return;
     }
     $('#result').val(JSON.stringify(data, null, 4));
+    //set the gameState array to the data from the server
     gameState = data.game.cells;
+    player_o = data.game.player_o.id;
+    //populate the board
     loadGame(gameState);
+    //store the game ID
     $('.gameID').val(data.game.id);
+    //hide the message div
     $('.message').hide();
     });
   });
 
   $('#mark-cell').on('submit', function(e) {
-    var token = $(this).children('[name="token"]').val();
-    var id = $('#mark-id').val();
+    var token = currentToken;
+    var id = currentGame;
     var data = wrap('game', wrap('cell', form2object(this)));
     e.preventDefault();
     tttapi.markCell(id, data, token, function callback(error, data) {

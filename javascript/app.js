@@ -13,7 +13,11 @@ var board = {
   nine: ''
 }
 
-var gameState = []
+var gameState = [];
+var currentToken;
+var currentGame;
+var player_x = null;
+var player_o = null;
 
 //array of CSS class for each square
 var squareClasses = [
@@ -219,6 +223,21 @@ var switchTurns = function(){
   }
 }
 
+var updateServer = function(board) {
+  var currentBoard =boardToArray(board);
+  var token = currentToken;
+  var id = currentGame;
+  var data = wrap('game', wrap('cell', form2object(currentBoard)));
+  e.preventDefault();
+  tttapi.markCell(id, data, token, function callback(error, data) {
+    if (error) {
+      console.log(error);
+      $('#result').val('status: ' + error.status + ', error: ' +error.error);
+      return;
+    }
+  });
+}
+
 //Draw an x or o in the squares
 //Add an x or o in the appropriate place in the board object
 //Indicate whose turn is next.
@@ -232,6 +251,7 @@ var placeX = function(event){
     turns += 1;
     //after successful click, add player marker to the board object
     addToBoard(event);
+
     //if there is no winner, change the turn indicator
     // if there is a winner, running checkForWinner will trigger the message div
     if(!checkForWinner(player)){
@@ -244,8 +264,12 @@ var placeX = function(event){
     } else {
       $('.turn .letter').text("X");
     }
+
+  updateServer(board);
   }
 }
+
+
 
 //set click handlers
 var playTicTacToe = function(){
