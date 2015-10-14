@@ -1,4 +1,11 @@
 'use strict';
+
+var gameState = [];
+var currentToken;
+var currentGame;
+var player_x = null;
+var player_o = null;
+
 var tttapi = {
   gameWatcher: null,
   ttt: 'http://ttt.wdibos.com',
@@ -143,6 +150,7 @@ $(function() {
       callback(null, data);
       $('#login, #register').hide();
       $('.token').val(data.user.token);
+      console.log(data.user.token)
       currentToken = data.user.token;
     };
     e.preventDefault();
@@ -164,9 +172,16 @@ $(function() {
   $('#create-game').on('submit', function(e) {
     var token = $(this).children('[name="token"]').val();
     e.preventDefault();
-    tttapi.createGame(token, callback);
-    currentGame = data.game.id;
-    player_x = data.game.player_x.id;
+    tttapi.createGame(currentToken, function(error, data){
+      if (error) {
+      console.log(error);
+      $('#result').val('status: ' + error.status + ', error: ' +error.error);
+      return;
+      }
+      currentGame = data.game.id;
+      player_x = data.game.player_x.id;
+      $('#result').val('Game number: ' + currentGame + '.  You are X');
+    });
   });
 
   $('#show-game').on('submit', function(e) {
@@ -176,7 +191,7 @@ $(function() {
     tttapi.showGame(id, token, callback);
   });
 
-  $('#join-game').on('submit', function(e) {
+  $('#join-game').on('submit', function(e, currentToken) {
     var token = $(this).children('[name="token"]').val();
     var currentGame = $('#join-id').val();
     e.preventDefault();
@@ -212,6 +227,8 @@ $(function() {
       }
     });
   });
+
+
 
   $('#watch-game').on('submit', function(e){
     var token = $(this).children('[name="token"]').val();

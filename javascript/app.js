@@ -13,12 +13,6 @@ var board = {
   nine: ''
 }
 
-var gameState = [];
-var currentToken;
-var currentGame;
-var player_x = null;
-var player_o = null;
-
 //array of CSS class for each square
 var squareClasses = [
 'one', 'two','three','four', 'five', 'six', 'seven', 'eight', 'nine']
@@ -44,9 +38,9 @@ var gamesCompleted = 0;
 var boardToArray = function(board){
   var array = [];
   for(var i =0, length = squareClasses.length; i < length; i++ ){
-    gameState.push(board[squareClasses[i]]);
+    gameState[i] = (board[squareClasses[i]]);
   }
-}
+};
 
 //write a function that maps an array to the board object
 
@@ -54,7 +48,7 @@ var arrayToBoard = function(array){
   for(var i =0, length = squareClasses.length; i < length; i++ ){
     board[squareClasses[i]] = array[i];
   }
-}
+};
 
 
 var loadGame = function(array){
@@ -65,7 +59,7 @@ var loadGame = function(array){
       turns+=1;
     }
   }
-}
+};
 
 //write a clickhandler that updates a game
 
@@ -188,8 +182,16 @@ var checkForWinner = function(player){
   if(turns > 4 && winnerIs(player) || turns === 9){
     displayWinner(player);
     gamesCompleted += 1;
-    //start over, clear board
     return true;
+    //start over, clear board
+    // var data = {}
+    // tttapi.markCell(id, data, token, function callback(error, data) {
+    //   if (error) {
+    //     console.log(error);
+    //     $('#result').val('status: ' + error.status + ', error: ' +error.error);
+    //     return;
+     // }
+    //}
   } else return false;
 }
 
@@ -223,13 +225,19 @@ var switchTurns = function(){
   }
 }
 
-var updateServer = function(board) {
-  var currentBoard =boardToArray(board);
-  var token = currentToken;
-  var id = currentGame;
-  var data = wrap('game', wrap('cell', form2object(currentBoard)));
+var updateServer = function(board, player, gameState) {
+  var lastBoard = gameState;
+  boardToArray(board);
+  var currentBoard = gameState;
+
+  var changedCellIndex = currentBoard.findIndex(function(element, index, array){
+    element != lastBoard[index];
+    });
+
+  var data = wrap('game', wrap('cell', {'index': changedCellIndex, 'value': player}));
   e.preventDefault();
-  tttapi.markCell(id, data, token, function callback(error, data) {
+
+  tttapi.markCell(currentGame, data, currentToken, function callback(error, data) {
     if (error) {
       console.log(error);
       $('#result').val('status: ' + error.status + ', error: ' +error.error);
@@ -245,13 +253,16 @@ var placeX = function(event){
   switchTurns();
 
   //add the appropriate x or o to the table div
-  if(!$(this).text()){
+  if(!$(this).text() &&
+    ((player==='X' && player_x)
+    || (player==='O'&& player_o)
+    )){
     $(this).append(player);
     //increment the turns
     turns += 1;
     //after successful click, add player marker to the board object
     addToBoard(event);
-
+    updateServer(board, player, gameState);
     //if there is no winner, change the turn indicator
     // if there is a winner, running checkForWinner will trigger the message div
     if(!checkForWinner(player)){
@@ -261,11 +272,24 @@ var placeX = function(event){
       } else {
         $('.turn .letter').text("X");
       }
+      //listen for other player's turn
+      var listenForPlay = function (){
+        tttapi.showGame(currentGame, currentToken, function(data){
+          //when the data from Show is differnt from the data I have
+          if (!data.game.cells.every(function (){
+            return currentValue === gameState[index];
+          })) {
+            //update the game board
+            loadGame(data.game.cells);
+          } else {
+            setTimeout(listenForPlay, 500)
+          }
+        });
+      };
+      setTimeout(listenForPlay, 500);
     } else {
       $('.turn .letter').text("X");
     }
-
-  updateServer(board);
   }
 }
 
