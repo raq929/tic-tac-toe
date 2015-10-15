@@ -144,10 +144,10 @@ var displayWinner = function (player){
   //determines winner if there is one or shows a tie
   if(winnerIs(player)){
     winner = player;
-    $('.message').html(winner + ' wins! <br> <button type="button">Play Again!</button>')
+    $('#winner').html(winner + ' wins!')
   } else {
     winner = 'tie'
-    $('.message').html('It\'s a tie <br> <button type="button">Play Again!</button>');
+    $('#winner').html('It\'s a tie.');
   }
   //increments scoreboard
   score[winner] += 1;
@@ -267,7 +267,6 @@ var placeX = function(event){
     //if there is no winner, change the turn indicator
     // if there is a winner, running checkForWinner will trigger the message div
   }
-
 }
 
 

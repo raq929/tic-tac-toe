@@ -166,7 +166,7 @@ $(function() {
       callback(null, data);
       $('#login, #register').hide();
       $('.token').val(data.user.token);
-      console.log(data.user.token)
+      console.log('' + data.user.token)
       currentToken = data.user.token;
       playerID = data.user.id;
     };
@@ -245,12 +245,21 @@ $(function() {
       var cell = gameData.cell;
       var index = cell.index;
       var value = cell.value;
+      var lastPlayer
       gameState[index] = value;
       loadGame(gameState);
+      if(player === 'X'){
+        lastPlayer = 'O'
+      } else {
+        lastPlayer = 'X'
+      }
+
+      console.log('player before checkforWinner is ' + player)
+      if(checkForWinner(player)){
+        displayWinner(player);
+      }
       switchTurns();
 
-      $('#watch-index').val(cell.index);
-      $('#watch-value').val(cell.value);
     });
     gameWatcher.on('error', function(e){
       console.error('an error has occured with the stream', e);
