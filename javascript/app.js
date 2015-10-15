@@ -51,16 +51,6 @@ var arrayToBoard = function(array){
 };
 
 
-var loadGame = function(array){
-  arrayToBoard(array);
-  for(var i =0, length = squareClasses.length; i < length; i++ ){
-    $('.' + squareClasses[i]).text(board[squareClasses[i]]);
-    if(board[squareClasses[i]]){
-      turns+=1;
-    }
-  }
-};
-
 var wrap = function wrap(root, formData) {
     var wrapper = {};
     wrapper[root] = formData;
@@ -212,7 +202,6 @@ var addToBoard = function(event){
 var switchTurns = function(){
   //determine whose turn it is
   //if an even number of games have been completed, X goes first
-  if (gamesCompleted%2 === 0) {
     //if an even number of turns have been taken, it is X's turn
     //if not, it is O's turn
     if (turns%2 === 0){
@@ -220,27 +209,19 @@ var switchTurns = function(){
     } else {
       player = 'O';
     }
-  } else {
-    //for odd numbered games, O goes first.
-    if (turns%2 === 0){
-      player = 'O';
-    } else {
-      player = 'X';
-    }
-  }
 }
 
 var updateServer = function(board, player, gameState) {
-  var lastBoard = gameState;
+  var lastBoard = gameState.slice();
   boardToArray(board);
   var currentBoard = gameState;
 
   var changedCellIndex = currentBoard.findIndex(function(element, index, array){
-    element != lastBoard[index];
+    return element != lastBoard[index];
     });
+  console.log("changedCellIndex" + changedCellIndex);
 
   var data = wrap('game', wrap('cell', {'index': changedCellIndex, 'value': player}));
-
 
   tttapi.markCell(currentGame, data, currentToken, function callback(error, data) {
     if (error) {
@@ -249,6 +230,7 @@ var updateServer = function(board, player, gameState) {
       error.preventDefault();
       return;
     }
+    console.log('markCell complete');
   });
 }
 
@@ -278,21 +260,6 @@ var placeX = function(event){
       } else {
         $('.turn .letter').text("X");
       }
-      //listen for other player's turn
-      var listenForPlay = function (){
-        tttapi.showGame(currentGame, currentToken, function(error, data){
-          //when the data from Show is differnt from the data I have
-          if (!data.game.cells.every(function (currentValue, index){
-            return currentValue === gameState[index];
-          })) {
-            //update the game board
-            loadGame(data.game.cells);
-          } else {
-            setTimeout(listenForPlay, 500)
-          }
-        });
-      };
-      setTimeout(listenForPlay, 500);
     } else {
       $('.turn .letter').text("X");
     }

@@ -104,6 +104,7 @@ var tttapi = {
   },
 
   watchGame: function (id, token) {
+    console.log(id + '' + token);
     var url = this.ttt + '/games/' + id + '/watch';
     var auth = {
       Authorization: 'Token token=' + token
@@ -139,6 +140,16 @@ $(function() {
       return;
     }
     $('#result').val(JSON.stringify(data, null, 4));
+  };
+
+  var loadGame = function(array){
+    arrayToBoard(array);
+    for(var i =0, length = squareClasses.length; i < length; i++ ){
+      $('.' + squareClasses[i]).text(board[squareClasses[i]]);
+      if(board[squareClasses[i]]){
+        turns+=1;
+      }
+    }
   };
 
   $('#login').on('submit', function(e) {
@@ -253,29 +264,32 @@ $(function() {
       }
     });
   });
+  //listen for other player's turn
+  $('table').on('click', function(e){
+      e.preventDefault();
 
+      var gameWatcher = tttapi.watchGame(currentGame, currentToken);
 
+      gameWatcher.on('change', function(data){
+        var parsedData = JSON.parse(data);
+        if (data.timeout) { //not an error
+          this.gameWatcher.close();
+          return console.warn(data.timeout);
+        }
 
-  $('#watch-game').on('submit', function(e){
-    var token = $(this).children('[name="token"]').val();
-    var id = $('#watch-id').val();
-    e.preventDefault();
+        var gameData = parsedData.game;
+        var cell = gameData.cell;
+        var index = cell.index;
+        var value = cell.value;
+        gameState[index] = value;
+        loadGame(gameState);
 
-    var gameWatcher = tttapi.watchGame(id, token);
-
-    gameWatcher.on('change', function(data){
-      var parsedData = JSON.parse(data);
-      if (data.timeout) { //not an error
-        this.gameWatcher.close();
-        return console.warn(data.timeout);
-      }
-      var gameData = parsedData.game;
-      var cell = gameData.cell;
-      $('#watch-index').val(cell.index);
-      $('#watch-value').val(cell.value);
-    });
-    gameWatcher.on('error', function(e){
-      console.error('an error has occured with the stream', e);
+        $('#watch-index').val(cell.index);
+        $('#watch-value').val(cell.value);
+      });
+      gameWatcher.on('error', function(e){
+        console.error('an error has occured with the stream', e);
+      });
     });
   });
-});
+
