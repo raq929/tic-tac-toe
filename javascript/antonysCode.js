@@ -6,6 +6,7 @@ var currentGame;
 var playerID = null;
 var player_x = null;
 var player_o = null;
+var turns = 0;
 
 var tttapi = {
   gameWatcher: null,
@@ -144,10 +145,13 @@ $(function() {
 
   var loadGame = function(array){
     arrayToBoard(array);
+    turns = 0;
     for(var i =0, length = squareClasses.length; i < length; i++ ){
       $('.' + squareClasses[i]).text(board[squareClasses[i]]);
       if(board[squareClasses[i]]){
-        turns+=1;
+        console.log('board items' + board[squareClasses[i]])
+        turns = turns + 1;
+        console.log("Turns " + turns);
       }
     }
   };
@@ -204,7 +208,7 @@ $(function() {
     tttapi.showGame(id, token, function(error, data){
       if (error) {
       console.log(error);
-      $('#result').val('status: ' + error.status + ', error: ' +error.error);
+      $('#result').val("You have not joined this game.");
       return;
     }
     $('#result').val(JSON.stringify(data, null, 4));
@@ -226,8 +230,34 @@ $(function() {
     loadGame(gameState);
     //hide the message div
     $('.message').hide();
+
+    var token = currentToken;
+    var gameWatcher = tttapi.watchGame(currentGame, token);
+
+    gameWatcher.on('change', function(data){
+      var parsedData = JSON.parse(data);
+      if (data.timeout) { //not an error
+        this.gameWatcher.close();
+        return console.warn(data.timeout);
+      }
+
+      var gameData = parsedData.game;
+      var cell = gameData.cell;
+      var index = cell.index;
+      var value = cell.value;
+      gameState[index] = value;
+      loadGame(gameState);
+      switchTurns();
+
+      $('#watch-index').val(cell.index);
+      $('#watch-value').val(cell.value);
+    });
+    gameWatcher.on('error', function(e){
+      console.error('an error has occured with the stream', e);
+    });
     });
   });
+
 
 
   $('#join-game').on('submit', function(e, currentToken) {
@@ -241,9 +271,6 @@ $(function() {
       return;
     }
     $('#result').val('You have joined game' + data.game.id +'. You are O. To play this game, enter the game number and click Show Game');
-
-    //populate the board
-    loadGame(gameState);
     });
   });
 
@@ -261,31 +288,5 @@ $(function() {
     });
   });
   //listen for other player's turn
-  $('table').on('click', function(e){
-      e.preventDefault();
-
-      var gameWatcher = tttapi.watchGame(currentGame, currentToken);
-
-      gameWatcher.on('change', function(data){
-        var parsedData = JSON.parse(data);
-        if (data.timeout) { //not an error
-          this.gameWatcher.close();
-          return console.warn(data.timeout);
-        }
-
-        var gameData = parsedData.game;
-        var cell = gameData.cell;
-        var index = cell.index;
-        var value = cell.value;
-        gameState[index] = value;
-        loadGame(gameState);
-
-        $('#watch-index').val(cell.index);
-        $('#watch-value').val(cell.value);
-      });
-      gameWatcher.on('error', function(e){
-        console.error('an error has occured with the stream', e);
-      });
-    });
-  });
+});
 

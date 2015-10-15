@@ -29,7 +29,6 @@ var tallies = ['a', 'b', 'c', 'd', 'e'];
 
 //Initial conditions
 var player;
-var turns = 0;
 var winner = null;
 var gamesCompleted = 0;
 
@@ -209,9 +208,15 @@ var switchTurns = function(){
     } else {
       player = 'O';
     }
+    //set the turn indicator
+    if(turns%2 === 1){
+      $('.turn .letter').text("O");
+    } else {
+      $('.turn .letter').text("X");
+    }
 }
 
-var updateServer = function(board, player, gameState) {
+var updateServer = function() {
   var lastBoard = gameState.slice();
   boardToArray(board);
   var currentBoard = gameState;
@@ -219,11 +224,14 @@ var updateServer = function(board, player, gameState) {
   var changedCellIndex = currentBoard.findIndex(function(element, index, array){
     return element != lastBoard[index];
     });
-  console.log("changedCellIndex" + changedCellIndex);
+  console.log("changedCellIndex " + changedCellIndex);
 
   var data = wrap('game', wrap('cell', {'index': changedCellIndex, 'value': player}));
 
-  tttapi.markCell(currentGame, data, currentToken, function callback(error, data) {
+  console.log('data sent in markCell' + data);
+  var token = currentToken;
+  var id = currentGame;
+  tttapi.markCell(id, data, token, function callback(error, data) {
     if (error) {
       console.log(error);
       $('#result').val('status: ' + error.status + ', error: ' +error.error);
@@ -238,7 +246,6 @@ var updateServer = function(board, player, gameState) {
 //Add an x or o in the appropriate place in the board object
 //Indicate whose turn is next.
 var placeX = function(event){
-  switchTurns();
 
   //add the appropriate x or o to the table div
   if(!$(this).text() &&
@@ -246,29 +253,22 @@ var placeX = function(event){
     || (player==='O'&& player_o)
     )){
     $(this).append(player);
-
     //after successful click, add player marker to the board object
     addToBoard(event);
-    updateServer(board, player, gameState);
+    updateServer();
     //if there is no winner, change the turn indicator
     // if there is a winner, running checkForWinner will trigger the message div
     if(!checkForWinner(player)){
-    //set the turn indicator
-      if(player === 'X'){
-        $('.turn .letter').text("O");
-      } else {
-        $('.turn .letter').text("X");
-      }
-    } else {
-      $('.turn .letter').text("X");
     }
   }
+
 }
 
 
 
 //set click handlers
 var playTicTacToe = function(){
+  switchTurns();
   //click handlers on initial message div
   //$('button').on('click', setPlayerNames);
   //$('button').on('click', hideMessage);
