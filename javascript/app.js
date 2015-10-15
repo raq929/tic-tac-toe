@@ -60,14 +60,14 @@ var wrap = function wrap(root, formData) {
 
 
 //Set player names
-var setPlayerNames = function(){
-  //get input from input fields
-  var playerA = $('#inputA').val();
-  var playerB = $('#inputB').val();
-  //Add input to the player divs
-  $('.playerA').prepend(playerA);
-  $('.playerB').prepend(playerB);
-}
+// var setPlayerNames = function(){
+//   //get input from input fields
+//   var playerA = $('#inputA').val();
+//   var playerB = $('#inputB').val();
+//   //Add input to the player divs
+//   $('.playerA').prepend(playerA);
+//   $('.playerB').prepend(playerB);
+// }
 
 //hide message div
 var hideMessage = function() {
@@ -246,8 +246,7 @@ var placeX = function(event){
     || (player==='O'&& player_o)
     )){
     $(this).append(player);
-    //increment the turns
-    turns += 1;
+
     //after successful click, add player marker to the board object
     addToBoard(event);
     updateServer(board, player, gameState);
@@ -271,8 +270,8 @@ var placeX = function(event){
 //set click handlers
 var playTicTacToe = function(){
   //click handlers on initial message div
-  $('button').on('click', setPlayerNames);
-  $('button').on('click', hideMessage);
+  //$('button').on('click', setPlayerNames);
+  //$('button').on('click', hideMessage);
   //Recognize a click in the square, add it to the board
   $('.square').on('click', placeX);
 }

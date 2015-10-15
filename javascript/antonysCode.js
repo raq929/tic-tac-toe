@@ -211,6 +211,8 @@ $(function() {
     //set the gameState array to the data from the server
     gameState = data.game.cells;
     //sets permisisons to play x or o
+    console.log('playerID ' + playerID);
+    console.log('data.game.player_x ' + data.game.player_x.id)
     if(playerID === data.game.player_x.id){
       player_x = playerID;
       player_o = null;
@@ -238,16 +240,10 @@ $(function() {
       $('#result').val('status: ' + error.status + ', error: ' +error.error);
       return;
     }
-    $('#result').val(JSON.stringify(data, null, 4));
-    //set the gameState array to the data from the server
-    gameState = data.game.cells;
-    player_o = data.game.player_o.id;
+    $('#result').val('You have joined game' + data.game.id +'. You are O. To play this game, enter the game number and click Show Game');
+
     //populate the board
     loadGame(gameState);
-    //store the game ID
-    currentGame = data.game.id;
-    //hide the message div
-    $('.message').hide();
     });
   });
 
