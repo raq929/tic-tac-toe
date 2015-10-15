@@ -152,6 +152,23 @@ var displayWinner = function (player){
   //increments scoreboard
   score[winner] += 1;
   displayScore(winner);
+  token = currentToken;
+  id = currentGame;
+    //start over, clear board
+  var data = {
+    "game": {
+      "over": true
+    }
+  };
+
+  tttapi.markCell(id, data, token, function callback(error, data) {
+      if (error) {
+        console.log(error);
+        $('#result').val('status: ' + error.status + ', error: ' +error.error);
+        return;
+     }
+     console.log('Reported game over');
+    });
   //display winner & play again message
   $('.message').show('slow');
   $('button').on('click', hideMessage);
@@ -173,19 +190,10 @@ var clearBoard = function (){
 //checks if there is a winner, calls displayWinner (returns a Boolean)
 var checkForWinner = function(player){
   //check for winner or tie
-  if(turns > 4 && winnerIs(player) || turns === 9){
-    displayWinner(player);
+  if(turns > 4 && winnerIs(player) || turns > 8){
     gamesCompleted += 1;
+
     return true;
-    //start over, clear board
-    // var data = {}
-    // tttapi.markCell(id, data, token, function callback(error, data) {
-    //   if (error) {
-    //     console.log(error);
-    //     $('#result').val('status: ' + error.status + ', error: ' +error.error);
-    //     return;
-     // }
-    //}
   } else return false;
 }
 
@@ -258,8 +266,6 @@ var placeX = function(event){
     updateServer();
     //if there is no winner, change the turn indicator
     // if there is a winner, running checkForWinner will trigger the message div
-    if(!checkForWinner(player)){
-    }
   }
 
 }
