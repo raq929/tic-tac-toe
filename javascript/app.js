@@ -121,20 +121,14 @@ var displayScore = function(winner){
   //score is only incremented for the winning player
   //if the tallies have reached 5, add a new line
   var column
-
-  switch(winner){
-    case 'X':
-    column = '.scoreX .tally'
-    break;
-
-    case 'O':
-    column = '.scoreO .tally';
-    break;
-
-    case 'tie':
+  if((winner === 'X' && player_x) || (winner === 'O' && player_o)){
+    column = '.scoreMe .tally'
+  } else if (winner ===
+    'tie') {
     column = '.scoreTie .tally';
-    break;
-    }
+  } else {
+    column = '.scoreThem .tally';
+  }
 
   $(column).html(scoreToHTML(score[winner]));
 }
