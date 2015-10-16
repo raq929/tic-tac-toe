@@ -143,7 +143,7 @@ $(function() {
     $('#result').val(JSON.stringify(data, null, 4));
   };
 
-     //determine whose turn it is
+  //determine whose turn it is
   var switchTurns = function(){
     if (turns%2 === 0){
       player = 'X';
@@ -156,7 +156,6 @@ $(function() {
     } else {
       $('.turn .letter').text("O");
     }
-    console.log('switchTurns complete. Turns: ' + turns + 'player' +player);
   }
 
   var loadGame = function(array){
@@ -201,8 +200,8 @@ $(function() {
     //increments scoreboard
     score[winner] += 1;
     displayScore(winner);
-    token = currentToken;
-    id = currentGame;
+    var token = currentToken;
+    var id = currentGame;
 
     var data = {
       "game": {
@@ -250,7 +249,7 @@ $(function() {
     var lastBoard = gameState.slice();
     boardToArray(board);
     var currentBoard = gameState;
-
+    //finds the cell whose value has changed
     var changedCellIndex = currentBoard.findIndex(function(element, index, array){
       return element != lastBoard[index];
       });
@@ -259,6 +258,7 @@ $(function() {
 
     var token = currentToken;
     var id = currentGame;
+    //sends the changed cell info to the server
     tttapi.markCell(id, data, token, function callback(error, data) {
       if (error) {
         console.log(error);
@@ -266,7 +266,6 @@ $(function() {
         error.preventDefault();
         return;
       }
-      console.log('markCell complete');
     });
   }
 
@@ -315,6 +314,7 @@ $(function() {
     });
   });
 
+  //This is where the main game functionality begins.
   $('#show-game').on('submit', function(e) {
     var token = $(this).children('[name="token"]').val();
     var id = $('#show-id').val();
@@ -354,23 +354,22 @@ $(function() {
         return console.warn(data.timeout);
       }
 
-      //if the last person to play won, display the win message.
-      if(checkForWinner(player)){
-        displayWinner(player);
-        return;
-      }
       var gameData = parsedData.game;
       var cell = gameData.cell;
       var index = cell.index;
       var value = cell.value;
-      var lastPlayer
+      var lastPlayer = player;
       //add the current move to gameState
       gameState[index] = value;
       //load the gameState
       loadGame(gameState);
 
-      switchTurns(player);
-
+      //if the last person to play won, display the win message.
+      if(checkForWinner(lastPlayer)){
+        gameWatcher.close();
+        displayWinner(lastPlayer);
+        return;
+      }
     });
     gameWatcher.on('error', function(e){
       console.error('an error has occured with the stream', e);
