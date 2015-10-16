@@ -136,12 +136,12 @@ table {
   border-radius: 12px;
 }
 
-.scoreX{
+.scoreMe{
   float: left;
   margin-left: 20px;
 }
 
-.scoreO{
+.scoreThem{
   float: left;
   margin: 0 40px 0 40px;
 }

@@ -8,92 +8,86 @@
 
 </head>
 <body>
-<section>
-  <h1>Tic-tac-toe</h1>
+  <section>
+    <h1>Tic-tac-toe</h1>
 
-  <div class = 'message'>
-    <div id = "winner"></div>
-    <form id="register">
+    <div class = 'message'>
+      <div id = "winner"></div>
+      <form id="register">
+        <input name="email" type="text" placeholder="email">
+        <input name="password" type="password" placeholder="password">
+        <input name="password_confirmation" type="password" placeholder="password confirmation">
+        <input name="register" type="submit" value="Register">
+      </form>
+    <form id="login">
       <input name="email" type="text" placeholder="email">
       <input name="password" type="password" placeholder="password">
-      <input name="password_confirmation" type="password" placeholder="password confirmation">
-      <input name="register" type="submit" value="Register">
+      <input name="login" type="submit" value="Login">
     </form>
-  <form id="login">
-    <input name="email" type="text" placeholder="email">
-    <input name="password" type="password" placeholder="password">
-    <input name="login" type="submit" value="Login">
-  </form>
-  <form id="list-games">
-    <input name="list-games" type="submit" value="List Games">
-    <input class="token" name="token" type="hidden">
-  </form>
-  <form id="create-game">
-    <input name="create-game" type="submit" value="Create Game">
-    <input class="token" name="token" type="hidden">
-  </form>
-  <form id="show-game">
-    <label for="show-id">Id:</label>
-    <input id="show-id" type="text" size="4">
-    <input name="show-game" type="submit" value="Show Game">
-    <input class="token" name="token" type="hidden">
- </form>
-  <form id="join-game">
-    <label for="join-id">Id:</label>
-    <input id="join-id" type="text" size="4">
-    <input name="join-game" type="submit" value="Join Game">
-    <input class="token" name="token" type="hidden">
- </form>
- <label for="result">Result</label>
-  <textarea id="result"></textarea>
+    <form id="list-games">
+      <input name="list-games" type="submit" value="List Games">
+      <input class="token" name="token" type="hidden">
+    </form>
+    <form id="create-game">
+      <input name="create-game" type="submit" value="Create Game">
+      <input class="token" name="token" type="hidden">
+    </form>
+    <form id="show-game">
+      <label for="show-id">Id:</label>
+      <input id="show-id" type="text" size="4">
+      <input name="show-game" type="submit" value="Show Game">
+      <input class="token" name="token" type="hidden">
+   </form>
+    <form id="join-game">
+      <label for="join-id">Id:</label>
+      <input id="join-id" type="text" size="4">
+      <input name="join-game" type="submit" value="Join Game">
+      <input class="token" name="token" type="hidden">
+   </form>
+   <label for="result">Result</label>
+    <textarea id="result"></textarea>
 
-  </div>
+    </div>
 
-  <div class='board'>
-    <table class='board'>
-    <input class="token" name="token" type="hidden">
-    <input class="gameID" name="gameID" type="hidden">
-    <tr>
-      <td class = 'square one' id = 'one'></td>
-      <td class = 'square two'></td>
-      <td class = 'square three'></td>
-    </tr>
-    <tr>
-      <td class = 'square four'></td>
-      <td class = 'square five'></td>
-      <td class = 'square six'></td>
-    </tr>
-    <tr>
-      <td class = 'square seven'></td>
-      <td class = 'square eight'></td>
-      <td class = 'square nine'></td>
-    </tr>
-  </table>
-  </div>
+    <div class='board'>
+      <table class='board'>
+      <input class="token" name="token" type="hidden">
+      <input class="gameID" name="gameID" type="hidden">
+      <tr>
+        <td class = 'square one' id = 'one'></td>
+        <td class = 'square two'></td>
+        <td class = 'square three'></td>
+      </tr>
+      <tr>
+        <td class = 'square four'></td>
+        <td class = 'square five'></td>
+        <td class = 'square six'></td>
+      </tr>
+      <tr>
+        <td class = 'square seven'></td>
+        <td class = 'square eight'></td>
+        <td class = 'square nine'></td>
+      </tr>
+    </table>
+    </div>
 
 
-<div class ='sidebar'>
-  <div class = 'turn'>Turn:<br><span class = 'letter'>X</span></div>
-  <div class = 'score'>
-    Score:<br>
-    <div class = 'scoreMe'><span class = underline>Me</span><br><span class = 'tally'></span></div>
-    <div class = 'scoreThem'><span class = underline>Them</span><br><span class = 'tally'></span> </div>
-    <div class = 'scoreTie'><span class = underline>Ties</span><br><span class = 'tally'></span> </div>
-  </div>
-</div>
+    <div class ='sidebar'>
+      <div class = 'turn'>Turn:<br><span class = 'letter'>X</span></div>
+      <div class = 'score'>
+        Score:<br>
+        <div class = 'scoreMe'><span class = underline>Me</span><br><span class = 'tally'></span></div>
+        <div class = 'scoreThem'><span class = underline>Them</span><br><span class = 'tally'></span> </div>
+        <div class = 'scoreTie'><span class = underline>Ties</span><br><span class = 'tally'></span> </div>
+      </div>
+    </div>
 
-<div class = 'players'>
-<div class = 'playerA'><br><span class = 'letter'>X</span></div>
-<div class = 'playerB'><br><span class = 'letter'>O</span></div>
-</div>
+  </section>
 
-
-</section>
-
-<script type="text/javascript" src="http://ttt.wdibos.com/js/resource-watcher-0.1.0.js" defer charset="utf-8"></script>
-<script src="javascript/jquery-2.1.4.min.js" type="application/javascript"></script>
-<script src="javascript/antonysCode.js" type = "application/javascript"></script>
-<script src="javascript/app.js" type = "application/javascript"></script>
-<script src="javascript/ajax.js" type = "application/javascript"></script>
+  <script type="text/javascript" src="http://ttt.wdibos.com/js/resource-watcher-0.1.0.js" defer charset="utf-8"></script>
+  <script src="javascript/jquery-2.1.4.min.js" type="application/javascript"></script>
+  <script src="javascript/antonysCode.js" type = "application/javascript"></script>
+  <script src="javascript/app.js" type = "application/javascript"></script>
+  <script src="javascript/ajax.js" type = "application/javascript"></script>
 </body>
 </html>
