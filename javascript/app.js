@@ -24,13 +24,9 @@ var score = {
   'tie': 0
 };
 
-//array of the letters that correspond to tally marks 1-5
-var tallies = ['a', 'b', 'c', 'd', 'e'];
-
 //Initial conditions
-var player;
+var player = 'X';
 var winner = null;
-var gamesCompleted = 0;
 
 
 //write a function that maps the board object to an array
@@ -48,31 +44,6 @@ var arrayToBoard = function(array){
     board[squareClasses[i]] = array[i];
   }
 };
-
-
-var wrap = function wrap(root, formData) {
-    var wrapper = {};
-    wrapper[root] = formData;
-    return wrapper;
-  };
-//write a clickhandler that updates a game
-
-
-//Set player names
-// var setPlayerNames = function(){
-//   //get input from input fields
-//   var playerA = $('#inputA').val();
-//   var playerB = $('#inputB').val();
-//   //Add input to the player divs
-//   $('.playerA').prepend(playerA);
-//   $('.playerB').prepend(playerB);
-// }
-
-//hide message div
-var hideMessage = function() {
-  $(".message").hide('slow');
-  clearBoard();
-}
 
 //Determine winner
 var winsRow = function (player){
@@ -96,9 +67,10 @@ var winnerIs = function (player) {
   return winsRow(player) || winsColumn(player) || winsDiagonal(player);
 }
 
-
 //Converts score(number) to a tally mark.
- scoreToHTML = function(number){
+var scoreToHTML = function(number){
+  //array of the letters that correspond to tally marks 1-5
+  var tallies = ['a', 'b', 'c', 'd', 'e'];
   var fives = 0;
   var ones = number % 5;
   var string = '';
@@ -116,165 +88,21 @@ var winnerIs = function (player) {
   return string;
 }
 
-//display the score as tally marks on the screen
-var displayScore = function(winner){
-  //score is only incremented for the winning player
-  //if the tallies have reached 5, add a new line
-  var column
-  if((winner === 'X' && player_x) || (winner === 'O' && player_o)){
-    column = '.scoreMe .tally'
-  } else if (winner ===
-    'tie') {
-    column = '.scoreTie .tally';
-  } else {
-    column = '.scoreThem .tally';
-  }
-
-  $(column).html(scoreToHTML(score[winner]));
-}
-
-//determines who the winner is and calls up the message div to display it
-var displayWinner = function (player){
-  //determines winner if there is one or shows a tie
-  if(winnerIs(player)){
-    winner = player;
-    $('#winner').html(winner + ' wins!')
-  } else {
-    winner = 'tie'
-    $('#winner').html('It\'s a tie.');
-  }
-  //increments scoreboard
-  score[winner] += 1;
-  displayScore(winner);
-  token = currentToken;
-  id = currentGame;
-    //start over, clear board
-  var data = {
-    "game": {
-      "over": true
-    }
-  };
-
-  tttapi.markCell(id, data, token, function callback(error, data) {
-      if (error) {
-        console.log(error);
-        $('#result').val('status: ' + error.status + ', error: ' +error.error);
-        return;
-     }
-     console.log('Reported game over');
-    });
-  //display winner & play again message
-  $('.message').show('slow');
-  $('button').on('click', hideMessage);
-}
-
-//resets initial conditions
-var clearBoard = function (){
-  turns = 0;
-  winner = null;
-  for(i = 0; i < squareClasses.length; i++){
-    $('.'+ squareClasses[i]).text('');
-    board[squareClasses[i]] = '';
-  }
-  if (gamesCompleted%2 === 1){
-    $('.turn .letter').text("O");
-  }
-}
-
 //checks if there is a winner, calls displayWinner (returns a Boolean)
 var checkForWinner = function(player){
   //check for winner or tie
   if(turns > 4 && winnerIs(player) || turns > 8){
-    gamesCompleted += 1;
 
     return true;
   } else return false;
 }
 
-//add the x or o to the board object
-var addToBoard = function(event){
-  var box =  event.target;
-  for(i = 0; i < squareClasses.length; i++)
-    if($(box).hasClass(squareClasses[i])){
-      board[squareClasses[i]] = player;
-  }
-}
-
-var switchTurns = function(){
-  //determine whose turn it is
-  //if an even number of games have been completed, X goes first
-    //if an even number of turns have been taken, it is X's turn
-    //if not, it is O's turn
-    if (turns%2 === 0){
-      player = 'X';
-    } else {
-      player = 'O';
-    }
-    //set the turn indicator
-    if(turns%2 === 1){
-      $('.turn .letter').text("O");
-    } else {
-      $('.turn .letter').text("X");
-    }
-}
-
-var updateServer = function() {
-  var lastBoard = gameState.slice();
-  boardToArray(board);
-  var currentBoard = gameState;
-
-  var changedCellIndex = currentBoard.findIndex(function(element, index, array){
-    return element != lastBoard[index];
-    });
-  console.log("changedCellIndex " + changedCellIndex);
-
-  var data = wrap('game', wrap('cell', {'index': changedCellIndex, 'value': player}));
-
-  console.log('data sent in markCell' + data);
-  var token = currentToken;
-  var id = currentGame;
-  tttapi.markCell(id, data, token, function callback(error, data) {
-    if (error) {
-      console.log(error);
-      $('#result').val('status: ' + error.status + ', error: ' +error.error);
-      error.preventDefault();
-      return;
-    }
-    console.log('markCell complete');
-  });
-}
-
-//Draw an x or o in the squares
-//Add an x or o in the appropriate place in the board object
-//Indicate whose turn is next.
-var placeX = function(event){
-
-  //add the appropriate x or o to the table div
-  if(!$(this).text() &&
-    ((player==='X' && player_x)
-    || (player==='O'&& player_o)
-    )){
-    $(this).append(player);
-    //after successful click, add player marker to the board object
-    addToBoard(event);
-    updateServer();
-    //if there is no winner, change the turn indicator
-    // if there is a winner, running checkForWinner will trigger the message div
-  }
-}
 
 
 
-//set click handlers
-var playTicTacToe = function(){
-  switchTurns();
-  //click handlers on initial message div
-  //$('button').on('click', setPlayerNames);
-  //$('button').on('click', hideMessage);
-  //Recognize a click in the square, add it to the board
-  $('.square').on('click', placeX);
-}
 
-playTicTacToe();
+
+
+
 
 
