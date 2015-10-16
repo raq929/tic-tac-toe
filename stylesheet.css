@@ -75,6 +75,18 @@ input {
   color: white;
   padding: 10px;
 }
+
+#result {
+  background-color: transparent;
+  font-size: 20px;
+  font-family: 'helvetica';
+  border-radius: 10px;
+  border: 5px solid white;
+  margin: 5px 0 0 0;
+  color: white;
+  padding: 10px;
+}
+
 textarea {
   height: 150px;
   width: 250px;

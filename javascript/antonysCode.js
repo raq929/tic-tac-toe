@@ -387,7 +387,7 @@ $(function() {
       $('#result').val('status: ' + error.status + ', error: ' +error.error);
       return;
     }
-    $('#result').val('You have joined game' + data.game.id +'. You are O. To play this game, enter the game number and click Show Game');
+    $('#result').val('You have joined game ' + data.game.id +'. You are O. Please put your game number in the Show Game field and click the button to begin your game.');
     });
   });
 
